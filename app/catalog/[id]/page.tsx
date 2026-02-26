@@ -26,9 +26,10 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }): Promise<Metadata> {
-  const painting = getPaintingById(params.id)
+  const { id } = await params
+  const painting = getPaintingById(id)
   if (!painting) return { title: 'Картина не найдена' }
 
   const defaultMeta  = SIZE_META[painting.defaultSize]
@@ -117,8 +118,9 @@ function ProductJsonLd({ painting }: { painting: ReturnType<typeof getPaintingBy
 
 // ─── СТРАНИЦА ─────────────────────────────────────────────────────────────────
 
-export default function PaintingPage({ params }: { params: { id: string } }) {
-  const painting = getPaintingById(params.id)
+export default async function PaintingPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const painting = getPaintingById(id)
   if (!painting) notFound()
 
   const idx      = PAINTINGS.findIndex(p => p.id === painting.id)
