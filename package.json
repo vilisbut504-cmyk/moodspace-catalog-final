@@ -1,0 +1,24 @@
+{
+  "name": "moodspace-catalog",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "migrate:paintings": "node scripts/migrate-paintings.mjs"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.27",
+    "next": "^15.2.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "sharp": "^0.33.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}

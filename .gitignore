@@ -1,0 +1,11 @@
+node_modules/
+.next/
+.env
+.env.local
+.vercel
+public/paintings/_originals/
+# Не коммитим оригиналы — они могут быть большими
+# WebP-превью коммитим (они уже оптимизированы)
+public/paintings_raw/
+public/paintings/_originals/
+public/paintings/

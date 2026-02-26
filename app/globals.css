@@ -1,0 +1,536 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap');
+
+/* ── CSS ПЕРЕМЕННЫЕ ── */
+:root {
+  --ink:  #1A1A18;
+  --go:   #C4A46B;
+  --gol:  rgba(196, 164, 107, 0.15);
+  --mu:   #6B6B62;
+  --bg:   #F9F5EF;
+  --wh:   #FEFDF8;
+  --bd:   rgba(26, 26, 24, 0.07);
+  --bd2:  rgba(26, 26, 24, 0.12);
+
+  --nav-h: 64px;
+
+  /* Сетка каталога */
+  --cols:  4;
+  --gap:   20px;
+}
+
+/* ── БРЕЙКПОИНТЫ СЕТКИ ── */
+@media (max-width: 1200px) { :root { --cols: 3; } }
+@media (max-width:  960px) { :root { --cols: 2; } }
+@media (max-width:  520px) { :root { --cols: 2; --gap: 10px; } }
+
+/* ── РЕСЕТ ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+h1, h2, h3, h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  line-height: 1.05;
+}
+button { font-family: 'Jost', sans-serif; cursor: pointer; border: none; background: none; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ── СКРОЛЛБАР ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(196, 164, 107, 0.3); }
+
+/* ── НАВИГАЦИЯ ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: var(--bg);
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 5vw, 80px);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 1.4vw, 20px);
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.nav-logo em { font-style: italic; color: var(--go); }
+.nav-back {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mu);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--go); }
+
+/* ── ШАПКА СТРАНИЦЫ ── */
+.page-header {
+  text-align: center;
+  padding: clamp(40px, 7vh, 80px) clamp(24px, 5vw, 80px) clamp(20px, 3vh, 36px);
+  border-bottom: 1px solid var(--bd);
+}
+.page-header-eyebrow {
+  font-size: 8px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--go);
+  margin-bottom: 12px;
+}
+.page-header h1 {
+  font-size: clamp(38px, 5.5vw, 68px);
+  letter-spacing: -1px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.page-header p {
+  font-size: clamp(13px, 1.1vw, 15px);
+  color: var(--mu);
+}
+
+/* ── ФИЛЬТРЫ ── */
+.filters-bar {
+  padding: clamp(14px, 2vh, 22px) clamp(24px, 5vw, 80px);
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.filter-row-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--mu);
+  min-width: 62px;
+  flex-shrink: 0;
+}
+.filter-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  background: transparent;
+  color: var(--mu);
+  border: 1px solid var(--bd2);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.filter-btn:hover  { border-color: rgba(196,164,107,.5); color: var(--ink); }
+.filter-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.filter-coming-soon {
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(26,26,24,.3);
+  font-style: italic;
+}
+
+/* ── КАТАЛОГ — ТЕЛО ── */
+.catalog-body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - var(--nav-h) - 160px);
+}
+
+/* ── САЙДБАР ── */
+.sidebar {
+  border-right: 1px solid var(--bd);
+  padding: clamp(20px, 3vh, 36px) clamp(16px, 2vw, 28px);
+  position: sticky;
+  top: var(--nav-h);
+  height: fit-content;
+  max-height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
+}
+.sidebar-heading {
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--go);
+  margin-bottom: 16px;
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.col-btn {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 1.35vw, 18px);
+  font-weight: 300;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  text-align: left;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+.col-btn:hover  { color: var(--go); }
+.col-btn.active { color: var(--go); border-bottom-color: rgba(196,164,107,.35); }
+.reset-btn {
+  margin-top: 20px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mu);
+  border: 1px solid var(--bd2);
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  background: transparent;
+  font-family: 'Jost', sans-serif;
+}
+.reset-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── ОСНОВНАЯ ОБЛАСТЬ ── */
+.catalog-main {
+  padding: clamp(20px, 3vh, 36px) clamp(20px, 3vw, 44px);
+}
+.catalog-meta {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--mu);
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ── СЕТКА КАРТОЧЕК ── */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+  margin-bottom: 40px;
+}
+
+/* ── ПАГИНАЦИЯ ── */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--bd);
+}
+.page-link {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  padding: 8px 14px;
+  border: 1px solid var(--bd2);
+  color: var(--mu);
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.page-link:hover  { border-color: var(--ink); color: var(--ink); }
+.page-link.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.page-link.disabled { opacity: 0.3; pointer-events: none; }
+
+/* ── КАРТОЧКА ТОВАРА ── */
+.painting-card { display: block; text-decoration: none; color: inherit; }
+.painting-card-img-wrap {
+  position: relative;
+  overflow: hidden;
+  background: #E8E3DA;
+}
+.painting-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.painting-card:hover .painting-card-img-wrap img { transform: scale(1.04); }
+.painting-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+.painting-card:hover .painting-card-overlay { background: rgba(26,26,24,.2); }
+.painting-card-overlay-label {
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.7);
+  padding: 9px 18px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.25s;
+  pointer-events: none;
+}
+.painting-card:hover .painting-card-overlay-label { opacity: 1; transform: translateY(0); }
+.painting-card-info { padding: 12px 0 0; }
+.painting-card-style {
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--go);
+  margin-bottom: 4px;
+}
+.painting-card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(15px, 1.5vw, 20px);
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.painting-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.painting-card-size  { font-size: 11px; color: var(--mu); }
+.painting-card-price { font-size: 13px; font-weight: 400; color: var(--ink); }
+
+/* ── СТРАНИЦА ТОВАРА ── */
+.product-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  min-height: calc(100vh - var(--nav-h));
+}
+.product-gallery-col {
+  background: #EFEAE0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 5vh, 64px);
+  position: sticky;
+  top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
+  overflow: hidden;
+}
+.product-info-col {
+  border-left: 1px solid var(--bd);
+  padding: clamp(28px, 4vh, 52px) clamp(20px, 3vw, 44px);
+  overflow-y: auto;
+  max-height: calc(100vh - var(--nav-h));
+}
+.product-collection {
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--go);
+  margin-bottom: 10px;
+}
+.product-name {
+  font-size: clamp(28px, 3.5vw, 48px);
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.product-style {
+  font-size: 12px;
+  color: var(--mu);
+  margin-bottom: 28px;
+}
+.product-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 4px;
+  transition: all 0.25s;
+}
+.product-price-sub {
+  font-size: 11px;
+  color: var(--mu);
+  margin-bottom: 28px;
+}
+.size-heading {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--mu);
+  margin-bottom: 10px;
+}
+.size-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+.size-btn {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 9px 14px;
+  border: 1px solid var(--bd2);
+  background: transparent;
+  color: var(--mu);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.size-btn:hover   { border-color: rgba(196,164,107,.5); color: var(--ink); }
+.size-btn.active  { background: var(--ink); color: #fff; border-color: var(--ink); }
+.size-btn .size-price {
+  font-size: 9px;
+  color: var(--go);
+  transition: color 0.2s;
+}
+.size-btn.active .size-price { color: rgba(255,255,255,.65); }
+.product-specs {
+  display: flex;
+  gap: 24px;
+  padding: 16px 0;
+  border-top: 1px solid var(--bd);
+  border-bottom: 1px solid var(--bd);
+  margin-bottom: 24px;
+}
+.spec { display: flex; flex-direction: column; gap: 4px; }
+.spec-label { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: var(--go); }
+.spec-value { font-size: 13px; }
+.product-cta { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.btn-primary {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
+  padding: 17px 28px;
+  background: var(--ink); color: #fff;
+  border: none; cursor: pointer;
+  transition: background 0.25s;
+  text-decoration: none;
+}
+.btn-primary:hover { background: #2c2c24; }
+.btn-secondary {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 400;
+  padding: 15px 28px;
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--bd2);
+  cursor: pointer; transition: border-color 0.2s;
+  text-decoration: none;
+}
+.btn-secondary:hover { border-color: var(--ink); }
+.product-delivery {
+  font-size: 11px;
+  color: var(--mu);
+  line-height: 1.8;
+}
+
+/* ── PREV/NEXT ── */
+.product-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: clamp(20px, 3vh, 32px) clamp(24px, 5vw, 80px);
+  border-top: 1px solid var(--bd);
+}
+.product-nav a {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mu);
+  transition: color 0.2s;
+}
+.product-nav a:hover { color: var(--go); }
+
+/* ── ПУСТОЙ ЭКРАН ── */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+}
+.empty-state h2 {
+  font-size: clamp(24px, 3vw, 36px);
+  margin-bottom: 10px;
+}
+.empty-state p {
+  font-size: 13px;
+  color: var(--mu);
+  margin-bottom: 20px;
+}
+
+/* ── "НЕ НАШЛИ?" БЛОК ── */
+.not-found-block {
+  margin-top: 48px;
+  padding: clamp(24px, 3.5vh, 40px);
+  border: 1px solid var(--bd);
+  text-align: center;
+  background: var(--wh);
+}
+.not-found-block h3 {
+  font-size: clamp(20px, 2.5vw, 28px);
+  margin-bottom: 8px;
+}
+.not-found-block p {
+  font-size: 13px;
+  color: var(--mu);
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+/* ── АДАПТИВ ── */
+@media (max-width: 960px) {
+  .catalog-body { grid-template-columns: 1fr; }
+  .sidebar {
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--bd);
+    max-height: none;
+  }
+  .product-layout { grid-template-columns: 1fr; }
+  .product-gallery-col {
+    position: static;
+    height: 60vw;
+    min-height: 320px;
+  }
+  .product-info-col { max-height: none; }
+}
+
+@media (max-width: 520px) {
+  .catalog-body { grid-template-columns: 1fr; }
+  .filters-bar { overflow-x: auto; }
+  .product-specs { gap: 16px; }
+  .product-layout { grid-template-columns: 1fr; }
+}
